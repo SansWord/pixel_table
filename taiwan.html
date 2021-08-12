@@ -7,12 +7,13 @@
     <script src="./jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        $("td").click(function(elm) {
-            var td = elm.currentTarget;
-            $(td).toggleClass($("#className").val());
-        });
+        // $("td").click(function(elm) {
+        //     var td = elm.currentTarget;
+        //     $(td).toggleClass($("#className").val());
+        // });
         $("#imgToggle").click(function() {
-            $("img").toggle();
+            $("img").toggleClass("trans");
+            $("table").toggleClass("trans");
         });
     })
     </script>
@@ -24,7 +25,15 @@
         height: 3px;
     }
 
-    td:not(.edge):not(.one):not(.two):not(.three):not(.four):not(.blue):not(.deepblue) {}
+    img:not(.trans) {
+        visibility: hidden;
+    }
+
+
+
+    table.trans {
+        opacity: 0.3;
+    }
 
     tr:nth-of-type(16n+1) td {
         border-top: 1px solid red;
@@ -80,7 +89,6 @@
         top: 80px;
         z-index: -1;
         width: 578px;
-        visibility: hidden;
     }
 
     img#golden_gate {
@@ -89,7 +97,6 @@
         top: 163px;
         z-index: -1;
         width: 190px;
-        visibility: hidden;
     }
 
     img#mazu {
@@ -98,7 +105,6 @@
         top: 53px;
         z-index: -1;
         width: 100px;
-        visibility: hidden;
     }
 
     img#east_in {
@@ -107,7 +113,6 @@
         top: 56px;
         z-index: -1;
         width: 120px;
-        visibility: hidden;
     }
 
     img#orange_light {
@@ -116,7 +121,6 @@
         top: 271px;
         z-index: -1;
         width: 160px;
-        visibility: hidden;
     }
 
     img#east_sand {
@@ -125,7 +129,6 @@
         top: 725px;
         z-index: -1;
         width: 180px;
-        visibility: hidden;
     }
 
     img#east_sand_large {
@@ -134,7 +137,6 @@
         top: 901px;
         z-index: -1;
         width: 460px;
-        visibility: hidden;
     }
 
     #taiwan {
