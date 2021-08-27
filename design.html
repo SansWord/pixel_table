@@ -8,16 +8,42 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $("td").click(function(elm) {
-            var td = elm.currentTarget;
-            var className = $("#className").val();
-            $(td).toggleClass(className);
+            var td = elm.currentTarget,
+                tdObj = $(td),
+                className = getColorClass();
+            if (className == "done") {
+                tdObj.toggleClass(className);
+            } else {
+                if (tdObj.hasClass(className)) {
+                    tdObj.removeClass();
+                } else {
+                    tdObj.removeClass().addClass(className);
+
+                }
+            }
         });
         $("td").contextmenu(function(elm) {
-            var td = elm.currentTarget;
-            var className = $("#className").val();
-            var toggleNum = parseInt($("#toggleNum").val(), 10) - 1;
-            $(td).toggleClass(className);
-            $(td).nextAll().slice(0, toggleNum).toggleClass(className);
+            var td = elm.currentTarget,
+                tdObj = $(td),
+                className = getColorClass(),
+                toggleNum = parseInt($("#toggleNum").val(), 10) - 1;
+            if (className == "done") {
+                tdObj.toggleClass(className);
+                tdObj.nextAll()
+                    .slice(0, toggleNum)
+                    .toggleClass(className);
+            } else {
+                if (tdObj.hasClass(className)) {
+                    tdObj.removeClass();
+                    tdObj.nextAll().slice(0, toggleNum).removeClass();
+                } else {
+                    tdObj.addClass(className);
+                    tdObj.nextAll()
+                        .slice(0, toggleNum)
+                        .removeClass()
+                        .addClass(className);
+                }
+            }
             return false;
         });
         $("#imgToggle").click(function() {
@@ -25,6 +51,15 @@
             $("table").toggleClass("trans");
         });
     })
+
+    function getColorClass() {
+        var option = $("#classNameOption").val();
+        if (option == "input") {
+            return $("#className").val();
+        } else {
+            return option;
+        }
+    }
     </script>
     <style type="text/css">
     td {
@@ -59,10 +94,6 @@
 
     tr td:last-of-type {
         border-right: 1px solid red;
-    }
-
-    td:not(.done) {
-        opacity: 0.3;
     }
 
     td.edge {
@@ -114,7 +145,7 @@
     }
 
     td.done {
-        /*background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));*/
+        background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4));
     }
 
     img#tw_height {
@@ -191,7 +222,24 @@
 
 <body>
     <div id="classNameDiv">
-        left click to add class name: <input type="text" value="done" id="className"><br>
+        left click to add class name:
+        <select id="classNameOption">
+            <option value="input">BY INPUT ---> </option>
+            <option value="edge">edge</option>
+            <option value="one">Moutain 1(one)</option>
+            <option value="two">Moutain 2(two)</option>
+            <option value="three">Moutain 3(three)</option>
+            <option value="four">Moutain 4(four)</option>
+            <option value="frame">frame</option>
+            <option value="blue">blue</option>
+            <option value="deepblue">deepBlue</option>
+            <option value="oceanEdge">oceanEdge</option>
+            <option value="oceanOne">oceanOne</option>
+            <option value="oceanTwo">oceanTwo</option>
+            <option value="oceanThree">oceanThree</option>
+            <option value="done">done</option>
+        </select>
+        <input type="text" value="done" id="className"><br>
         number of tile to add class when right click: <input type="text" value="5" id="toggleNum">
         <input type="button" value="toggle img, 隱藏/顯示圖片" id="imgToggle">
     </div>
@@ -10602,8 +10650,6 @@
     <img src="./east_sand.png" id="east_sand">
     <img src="./east_sand_large.png" id="east_sand_large">
     <img src="./taiwan_nearby_ocean.png" id="ocean">
-
-
 </body>
 
 </html>
